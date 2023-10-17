@@ -1,0 +1,110 @@
+!<!DOCTYPE html>
+<html>
+  <head>
+    <title>Form Popup</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .form-container {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        width: 300px;
+        text-align: left;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      label,
+      input,
+      textarea {
+        margin-bottom: 10px;
+      }
+
+      .popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .popup-content {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        width: 300px;
+        text-align: center;
+        position: relative;
+      }
+
+      .close {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <form id="myForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" /><br /><br />
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" /><br /><br />
+        <label for="message">Message:</label>
+        <textarea id="message" name="message"></textarea><br /><br />
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+    <div id="popup" class="popup">
+      <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2>Submitted Details</h2>
+        <p id="submittedDetails"></p>
+      </div>
+    </div>
+    <script>
+      function closePopup() {
+        document.getElementById("popup").style.display = "none";
+      }
+
+      document
+        .getElementById("myForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+          const message = document.getElementById("message").value;
+
+          const submittedDetails = `Name: ${name}\nEmail: ${email}\nMessage: ${message}`;
+          document.getElementById("submittedDetails").textContent =
+            submittedDetails;
+
+          document.getElementById("popup").style.display = "block";
+        });
+    </script>
+  </body>
+</html>

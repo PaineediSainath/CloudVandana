@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customer Survey Form</title>
+    
+    <style>
+      body {
+        background-color: rgb(26, 172, 230);
+      }
+      .main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .sub1 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-family: "Raleway", sans-serif;
+      }
+      .form-container {
+        height: 60vh;
+        width: 50%;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      /* Css For Popup */
+      .popup {
+        /* display: none; */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .popup-content {
+        display: flex;
+        flex-direction: column;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        width: 300px;
+        text-align: center;
+        position: relative;
+      }
+
+      .close {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div class="sub1">
+        <img
+          src="https://shorturl.at/bsXY8"
+          width="30%"
+          height="100px"
+          alt=""
+        />
+        <h1>Customer Survey Form</h1>
+      </div>
+      <div class="form-container">
+        <form class="form-container" action="#" id="myForm">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" />
+          <label for="fname">First name</label>
+          <input type="text" id="fname" name="fname" required />
+          <label for="lname">Last name</label>
+          <input type="text" id="lname" name="lname" required />
+          <label for="birthday">Date-of-Birth</label>
+          <input type="date" id="birthday" name="birthday" required />
+          <label for="country">Select country</label>
+          <select class="form-select" id="country" name="country" required>
+            <option value="">Country</option>
+            <option value="Afghanistan">Afghanistan</option>
+            <option value="Bahamas">Bahamas</option>
+            <option value="Cambodia">Cambodia</option>
+            <option value="France">France</option>
+            <option value="Gambia">Gambia</option>
+            <option value="Honduras">Honduras</option>
+            <option value="India">India</option>
+            <option value="Kazakhstan">Kazakhstan</option>
+            <option value="Zambia">Zambia</option>
+            <option value="Zimbabwe">Zimbabwe</option>
+          </select>
+          <legend>Choose your gender:</legend>
+          <label for="male">Male</label>
+          <input type="radio" name="gender" id="male" value="male" checked />
+          <label for="female">Female</label>
+          <input type="radio" name="gender" id="female" value="female" />
+          <label for="Profession">Profession</label>
+          <input type="text" id="Profession" name="fname" required />
+          <label for="email">Email</label>
+          <input type="email" id="email" required />
+          <label for="number">Mobile Number</label>
+          <input type="number" id="number" required />
+          <div>
+            <button type="submit" id="submitBtn" onclick="submitForm()">
+              Submit
+            </button>
+            <button onclick="reset()">Reset</button>
+          </div>
+        </form>
+        <div id="popup" class="popup" style="display: none;">
+          <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2>Submitted Details</h2>
+            <p id="submittedDetails"></p>
+          </div>
+        </div>
+      </div>
+      <div class="sub3"></div>
+    </div>
+    <script>
+      function reset() {
+        document.getElementById("myForm").reset();
+      }
+      function closePopup() {
+        document.getElementById("popup").style.display = "none";
+        document.getElementById("myForm").reset();
+      }
+
+      document
+        .getElementById("submitBtn")
+        .addEventListener("click", submitForm);
+
+      function submitForm(e) {
+        const name = document.getElementById("name").value;
+        const fname = document.getElementById("fname").value;
+        const lname = document.getElementById("lname").value;
+        const email = document.getElementById("email").value;
+        const country = document.getElementById("country").value;
+        const gender = document.querySelector('input[name="gender"]:checked');
+        const profession = document.getElementById("Profession").value;
+        const number = document.getElementById("number").value;
+        const birthday = document.getElementById("birthday").value;
+        e.preventDefault();
+        if (
+          name === "" ||
+          fname === "" ||
+          lname === "" ||
+          email === "" ||
+          country === "" ||
+          !gender ||
+          profession === "" ||
+          number === "" ||
+          birthday === ""
+        ) {
+          alert("Please fill in all required fields.");
+          return;
+        }
+
+        const submittedDetails = `
+        Name: ${name}
+        First Name: ${fname}
+        Last Name: ${lname}
+        Date of Birth: ${birthday}
+        Country: ${country}
+        Gender: ${gender.value}
+        Profession: ${profession}
+        Email: ${email}
+        Mobile Number: ${number}
+      `;
+        document.getElementById("submittedDetails").textContent =
+          submittedDetails;
+        document.getElementById("popup").style.display = "block";
+      }
+    </script>
+  </body>
+</html>
